@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://addons/CoreUI/Scripts/PauseMenu.cs" id="1"]
+[ext_resource type="Theme" path="res://addons/CoreUI/Resources/FoundationTheme.tres" id="theme"]
+
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("ResumeButton", "SettingsButton", "RestartButton", "MainMenuButton", "FirstFocusElement", "FallbackFocusElement")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+theme = ExtResource("theme")
+MenuId = "Pause"
+ResumeButton = NodePath("Center/Content/ResumeButton")
+SettingsButton = NodePath("Center/Content/SettingsButton")
+RestartButton = NodePath("Center/Content/RestartButton")
+MainMenuButton = NodePath("Center/Content/MainMenuButton")
+FirstFocusElement = NodePath("Center/Content/ResumeButton")
+FallbackFocusElement = NodePath("Center/Content/ResumeButton")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.025, 0.04, 0.065, 0.88)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 0)
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/Content"]
+layout_mode = 2
+text = "PAUSED"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+
+[node name="ResumeButton" type="Button" parent="Center/Content"]
+layout_mode = 2
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="Center/Content"]
+layout_mode = 2
+text = "Settings"
+
+[node name="RestartButton" type="Button" parent="Center/Content"]
+layout_mode = 2
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="Center/Content"]
+layout_mode = 2
+text = "Return to Title"

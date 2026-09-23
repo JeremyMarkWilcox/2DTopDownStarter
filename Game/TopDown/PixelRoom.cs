@@ -2,6 +2,7 @@ using Godot;
 
 public partial class PixelRoom : Node2D
 {
+    //Temp Art
     public override void _Draw()
     {
         DrawRect(new Rect2(0, 0, 960, 640), new Color("#243d40"));

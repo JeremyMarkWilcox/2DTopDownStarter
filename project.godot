@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Game Foundation"
+config/name="2DTopDownStarter"
 run/main_scene="res://addons/CoreUI/Examples/MainMenuRoot.tscn"
 config/features=PackedStringArray("4.7", "C#", "Mobile")
 config/icon="res://icon.svg"

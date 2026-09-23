@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1")
-ScenePath = "res://addons/CoreUI/Examples/MainMenuRoot.tscn"
+ScenePath = "res://Game/MainMenu.tscn"

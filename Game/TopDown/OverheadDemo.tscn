@@ -1,0 +1,201 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Game/TopDown/TopDownLevel.cs" id="level"]
+[ext_resource type="Script" path="res://Game/TopDown/PixelRoom.cs" id="room"]
+[ext_resource type="Script" path="res://Game/TopDown/TopDownPlayer.cs" id="player"]
+[ext_resource type="Script" path="res://Game/TopDown/TopDownInteractable.cs" id="item"]
+[ext_resource type="PackedScene" path="res://addons/CoreUI/Scenes/PauseMenu.tscn" id="pause"]
+[ext_resource type="PackedScene" path="res://addons/CoreUI/Scenes/SettingsMenu.tscn" id="settings"]
+
+[sub_resource type="CircleShape2D" id="body"]
+radius = 7.0
+[sub_resource type="RectangleShape2D" id="hazard"]
+size = Vector2(112, 64)
+
+[sub_resource type="RectangleShape2D" id="North"]
+size = Vector2(960, 32)
+[sub_resource type="RectangleShape2D" id="South"]
+size = Vector2(960, 32)
+[sub_resource type="RectangleShape2D" id="West"]
+size = Vector2(32, 640)
+[sub_resource type="RectangleShape2D" id="East"]
+size = Vector2(32, 640)
+[sub_resource type="RectangleShape2D" id="BlockA"]
+size = Vector2(64, 80)
+[sub_resource type="RectangleShape2D" id="BlockB"]
+size = Vector2(64, 80)
+[sub_resource type="RectangleShape2D" id="BlockC"]
+size = Vector2(96, 64)
+
+[node name="OverheadDemo" type="Node2D" node_paths=PackedStringArray("Player", "Camera", "Spawn", "PauseMenu", "PromptLabel", "StatusLabel", "Hazard", "Interactables")]
+script = ExtResource("level")
+Player = NodePath("World/Player")
+Camera = NodePath("World/Player/Camera")
+Spawn = NodePath("Spawn")
+PauseMenu = NodePath("UI/PauseMenu")
+PromptLabel = NodePath("UI/HUD/Prompt")
+StatusLabel = NodePath("UI/HUD/Status")
+Hazard = NodePath("Hazard")
+Interactables = [NodePath("World/Sign"), NodePath("World/Checkpoint"), NodePath("World/Exit")]
+
+[node name="Floor" type="Node2D" parent="."]
+script = ExtResource("room")
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(128, 304)
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+[node name="Player" type="CharacterBody2D" parent="World"]
+position = Vector2(128, 304)
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("player")
+[node name="Shape" type="CollisionShape2D" parent="World/Player"]
+position = Vector2(0, -4)
+shape = SubResource("body")
+[node name="Camera" type="Camera2D" parent="World/Player"]
+position = Vector2(0, -12)
+limit_left = 0
+limit_top = 0
+limit_right = 960
+limit_bottom = 640
+position_smoothing_enabled = false
+
+[node name="Sign" type="Node2D" parent="World"]
+position = Vector2(176,272)
+script = ExtResource("item")
+Kind = 0
+Prompt = "Read the trail sign"
+Message = "Follow the trail. Blue: checkpoint. Red: hazard. Gold: save and exit."
+Tint = Color(0.73, 0.64, 0.44, 1)
+
+[node name="Checkpoint" type="Node2D" parent="World" node_paths=PackedStringArray("RespawnPoint")]
+position = Vector2(304,272)
+script = ExtResource("item")
+Kind = 1
+Prompt = "Activate checkpoint"
+Message = ""
+Tint = Color(0.38, 0.72, 0.84, 1)
+CheckpointId = "trail"
+RespawnPoint = NodePath("Respawn")
+
+[node name="Respawn" type="Marker2D" parent="World/Checkpoint"]
+position = Vector2(0, 32)
+[node name="Exit" type="Node2D" parent="World"]
+position = Vector2(800,480)
+script = ExtResource("item")
+Kind = 2
+Prompt = "Save and return to title"
+Message = ""
+Tint = Color(0.94, 0.76, 0.35, 1)
+
+[node name="Hazard" type="Area2D" parent="."]
+position = Vector2(584, 360)
+collision_layer = 4
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="Hazard"]
+shape = SubResource("hazard")
+[node name="Water" type="Polygon2D" parent="Hazard"]
+polygon = PackedVector2Array(-56, -32, 56, -32, 56, 32, -56, 32)
+color = Color(0.63, 0.27, 0.25, 1)
+[node name="North" type="StaticBody2D" parent="World"]
+position = Vector2(480, 16)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/North"]
+shape = SubResource("North")
+[node name="Art" type="Polygon2D" parent="World/North"]
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="South" type="StaticBody2D" parent="World"]
+position = Vector2(480, 624)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/South"]
+shape = SubResource("South")
+[node name="Art" type="Polygon2D" parent="World/South"]
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="West" type="StaticBody2D" parent="World"]
+position = Vector2(16, 320)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/West"]
+shape = SubResource("West")
+[node name="Art" type="Polygon2D" parent="World/West"]
+polygon = PackedVector2Array(-16, -320, 16, -320, 16, 320, -16, 320)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="East" type="StaticBody2D" parent="World"]
+position = Vector2(944, 320)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/East"]
+shape = SubResource("East")
+[node name="Art" type="Polygon2D" parent="World/East"]
+polygon = PackedVector2Array(-16, -320, 16, -320, 16, 320, -16, 320)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="BlockA" type="StaticBody2D" parent="World"]
+position = Vector2(416, 240)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/BlockA"]
+shape = SubResource("BlockA")
+[node name="Art" type="Polygon2D" parent="World/BlockA"]
+polygon = PackedVector2Array(-32, -40, 32, -40, 32, 40, -32, 40)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="BlockB" type="StaticBody2D" parent="World"]
+position = Vector2(416, 392)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/BlockB"]
+shape = SubResource("BlockB")
+[node name="Art" type="Polygon2D" parent="World/BlockB"]
+polygon = PackedVector2Array(-32, -40, 32, -40, 32, 40, -32, 40)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="BlockC" type="StaticBody2D" parent="World"]
+position = Vector2(688, 208)
+collision_layer = 1
+collision_mask = 2
+[node name="Shape" type="CollisionShape2D" parent="World/BlockC"]
+shape = SubResource("BlockC")
+[node name="Art" type="Polygon2D" parent="World/BlockC"]
+polygon = PackedVector2Array(-48, -32, 48, -32, 48, 32, -48, 32)
+color = Color(0.17, 0.27, 0.31, 1)
+[node name="UI" type="CanvasLayer" parent="."]
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+[node name="Heading" type="Label" parent="UI/HUD"]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 624.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 16
+text = "TOP DOWN  /  OVERHEAD TEST TRAIL"
+[node name="Controls" type="Label" parent="UI/HUD"]
+offset_left = 16.0
+offset_top = 30.0
+offset_right = 624.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 12
+text = "WASD / arrows / left stick: move   E / X: interact   Esc / Menu / B: pause"
+[node name="Prompt" type="Label" parent="UI/HUD"]
+offset_left = 16.0
+offset_top = 294.0
+offset_right = 624.0
+offset_bottom = 314.0
+theme_override_font_sizes/font_size = 14
+[node name="Status" type="Label" parent="UI/HUD"]
+offset_left = 16.0
+offset_top = 322.0
+offset_right = 624.0
+offset_bottom = 352.0
+theme_override_font_sizes/font_size = 12
+text = "Find the trail sign. F5 / Y saves your position."
+autowrap_mode = 2
+[node name="PauseMenu" parent="UI" node_paths=PackedStringArray("SettingsMenu") instance=ExtResource("pause")]
+SettingsMenu = NodePath("../SettingsMenu")
+[node name="SettingsMenu" parent="UI" instance=ExtResource("settings")]

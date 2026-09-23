@@ -1,6 +1,6 @@
 # 2DTopDownStarter
 
-**Status: planned—perspective gameplay not implemented.**
+**Status: in development—overhead prototype implemented; isometric example planned.**
 
 A starting point for 2D games where the player moves around a world viewed from above. The goal is a small, understandable movement and interaction foundation that can grow into exploration, adventure, action or other top-down games.
 
@@ -15,9 +15,9 @@ The initial scope is movement on one plane. Combat, inventory, dialogue, click-t
 
 ## Presentation
 
-Pixel art is the preferred direction for this 2D starter. The pixel preset has **not yet been applied**: the copied project currently uses `canvas_items` / `expand`. Choose the actual art resolution during implementation; 640 × 360 is a suggested baseline, not a fixed requirement.
+Pixel art is the default presentation for this 2D starter. The project uses a 640 × 360 base viewport, 1280 × 720 development window, viewport stretching, keep aspect, integer scaling and nearest texture filtering. Raster art remains a documented conversion of this same starter; it does not require a second repository.
 
-Raster art will use the same starter with documented resolution, stretching and filtering changes. See the [setup guide](docs/PROJECT_SETUP.md). Overhead and isometric are planned example scenes; neither currently exists.
+Raster art will use the same starter with documented resolution, stretching and filtering changes. See the [setup guide](docs/PROJECT_SETUP.md). The overhead example is implemented; the isometric example will reuse its movement and interaction systems.
 
 ## What will demonstrate readiness
 
@@ -25,18 +25,18 @@ Both example scenes should have reliable movement, correct collision/draw order,
 
 ## Available now: the inherited foundation
 
-This repository currently launches the GameFoundation menu/demo scene, not a perspective-specific game. New Game opens that demo; the player controller and camera described above are planned work.
+New Game launches the overhead test trail in Game/TopDown/OverheadDemo.tscn. The prototype includes a camera-following player, solid obstacles, a sign interaction, a checkpoint, a hazard and a save/continue exit. Isometric presentation and art/animation replacement remain planned work.
 
 The copied foundation includes title/pause/settings menus, keyboard and controller menu confirmation/back, scene transitions, persistent volume/fullscreen and Save-action bindings, a versioned save backend and Continue, optional UI audio, and a shared Theme. Its regression scene is included. Existing validation records describe foundation checks, not certification of this starter's future gameplay.
 
-## Run the included foundation demo
+## Run the overhead prototype
 
 Requirements: the .NET build of Godot 4.7.2 and .NET 8 SDK for desktop. Android configuration targets .NET 9 but has not been validated here. Gameplay movement bindings will be documented when implemented; the current controls below operate the foundation demo.
 
 1. Import `project.godot` into the **.NET** build of Godot 4.7.2.
 2. Click **Build**, then **F5**. The title scene includes Settings as a sibling menu.
-3. Try New Game, Escape / controller Menu (Start, hamburger) / B, Settings, Restart, and Return to Title. Menu opens Pause during gameplay; pressing it again resumes. In Settings it returns to the previous menu.
-4. In gameplay, **F5 / controller Y** saves. Return to Title and choose Continue. Settings includes a Save-action rebind button; Escape/B cancels listening.
+3. Choose New Game to enter the overhead test trail. Move with WASD, arrow keys or the left stick. Use E or controller X near the sign, blue checkpoint or gold exit. Escape / controller Menu (Start, hamburger) / B opens Pause; pressing it again resumes.
+4. **F5 / controller Y** saves the current position and checkpoint. The gold exit returns to Title; Continue restores the saved prototype position. Settings includes a Save-action rebind button; Escape/B cancels listening.
 
 The solution currently retains its original `Main Menu.sln` filename. This does not affect the project name or behavior.
 
@@ -70,7 +70,7 @@ Save data strings (JSON keys, paths stored on disk), log messages, labels, and e
 
 ## Development and handoff
 
-Build and test one small playable example before expanding the feature list. The owner will validate this starter before handing it to other developers. Update this README as features move from planned to implemented, including exact controls, Inspector assignments, screenshots and limitations.
+Build and test one small playable example before expanding the feature list. The overhead prototype currently passes its 20-check smoke test plus the shared 30-check GDScript and 46-check foundation suites. The owner will validate this starter before handing it to other developers. Update this README as features move from planned to implemented, including exact controls, Inspector assignments, screenshots and limitations.
 
 The [GDD](https://docs.google.com/document/d/1Om7zLuNNLW-n-AbYMff3WZQE9F3F2vL3bwv_7Om-bNg/edit) is the source of truth for scope and decisions; this README describes what this repository currently runs. The copied [starter roadmap](docs/STARTER_ROADMAP.md) is planning background and may predate repository creation. See [acceptance checks](docs/SMOKE_TESTS.md), [foundation scope](docs/FRAMEWORK_STATUS.md), and the [new-game GDD outline](docs/GDD_TEMPLATE.md).
 

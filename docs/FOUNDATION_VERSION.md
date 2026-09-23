@@ -33,3 +33,10 @@ Applied from the local GameFoundation working tree based on the verified origin 
 Scope: device-change signal, UI-audio entry point, save-value accessors, distinct scene requests and completion signal; GDScript example, integration tests and documentation. Existing application name, project settings and perspective README content are preserved. This is a partial shared update, not a replacement baseline.
 
 Validation: Godot 4.7.2 .NET build and editor import passed; headless GDScript integration passed 30 checks; windowed C# foundation regression passed 46 checks. Applied shared files match the foundation byte-for-byte. Physical-controller and exported-build certification remain release checks.
+
+
+## Top-down prototype update
+
+The overhead prototype was added after the shared GDScript interface update. It includes the 640 × 360 pixel preset, camera-following movement without gravity, solid obstacles, interaction targeting, checkpoint respawn, hazard handling, save/continue and a title-return exit. The update is specific to this starter and does not change the recorded foundation origin.
+
+Validation: Game/Tests/TopDownSmokeTest.tscn passed 20 checks, including pixel settings, normalized movement, collision blocking, pause input isolation, sign interaction, checkpoint persistence, hazard respawn, restart and Continue. Isometric presentation remains planned.

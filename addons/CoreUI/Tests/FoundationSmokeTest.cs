@@ -52,6 +52,8 @@ public partial class FoundationSmokeTest : Node
         try
         {
             var flow = SceneFlowManager.Instance;
+            // This regression suite exercises the unchanged foundation demo.
+            flow.MainMenuScene = new SceneReference { ScenePath = "res://addons/CoreUI/Examples/MainMenuRoot.tscn" };
             flow.FadeDuration = 0.03f;
             if (HasArg("--small-window"))
             {

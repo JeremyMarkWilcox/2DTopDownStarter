@@ -1,11 +1,10 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dvs7widq2lkd8"]
 
 [ext_resource type="PackedScene" path="res://addons/CoreUI/Examples/KitbashMainMenu.tscn" id="1_main"]
 [ext_resource type="PackedScene" path="res://addons/CoreUI/Scenes/SettingsMenu.tscn" id="2_settings"]
-
 [ext_resource type="PackedScene" path="res://Game/TopDown/OverheadDemo.tscn" id="game"]
 
-[node name="MainMenuRoot" type="Control"]
+[node name="MainMenuRoot" type="Control" unique_id=608394164]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,12 +12,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMenu" parent="." node_paths=PackedStringArray("SettingsMenu") instance=ExtResource("1_main")]
+[node name="MainMenu" parent="." unique_id=949784841 node_paths=PackedStringArray("SettingsMenu") instance=ExtResource("1_main")]
 layout_mode = 1
-SettingsMenu = NodePath("../SettingsMenu")
 DemoScene = ExtResource("game")
+SettingsMenu = NodePath("../SettingsMenu")
 
-[node name="SettingsMenu" parent="." instance=ExtResource("2_settings")]
+[node name="SettingsMenu" parent="." unique_id=578383544 instance=ExtResource("2_settings")]
 layout_mode = 1
-MenuId = "Settings"
-IsOverlay = false
